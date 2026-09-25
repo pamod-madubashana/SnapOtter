@@ -2,8 +2,8 @@ import {
   ANALYTICS_EVENTS,
   FEATURE_BUNDLES,
   type FeatureBundleState,
-  type TranslationKeys,
   getRequiredBundlesForTool,
+  type TranslationKeys,
 } from "@snapotter/shared";
 import { AlertCircle, Clock, Download, Loader2, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -46,7 +46,7 @@ const PROGRESS_MESSAGES = [
 
 function formatTimeRemaining(ms: number, t: TranslationKeys): string {
   if (ms < 60000) return t.features.lessThanMinute;
-  const mins = Math.ceil(ms / 60000);
+  const mins = Math.round(ms / 60000);
   if (mins === 1) return t.features.oneMinuteLeft;
   return format(t.features.minutesLeft, { mins });
 }
