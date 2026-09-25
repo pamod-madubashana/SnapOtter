@@ -7,8 +7,8 @@
  *
  * Only longer human sentences are checked (MIN_LENGTH) so short codes that
  * are legitimately identical (SAML, OIDC, PDF, SnapOtter, ...) don't need an
- * allowlist. Values containing `{placeholders}` are skipped: technical format
- * strings such as "Original: {width} x {height} px" are intentionally shared.
+ * allowlist. Interpolated sentences are checked too; a string that should stay
+ * identical to en (a technical format string) goes in ALLOWLIST.
  */
 
 import { en, loadTranslations, SUPPORTED_LOCALES } from "@snapotter/shared";
@@ -51,10 +51,7 @@ describe("i18n untranslated values", () => {
         translations as unknown as Record<string, unknown>,
       ).filter(
         ([path, value]) =>
-          value.length >= MIN_LENGTH &&
-          enLeaves.get(path) === value &&
-          !value.includes("{") &&
-          !ALLOWLIST.has(value),
+          value.length >= MIN_LENGTH && enLeaves.get(path) === value && !ALLOWLIST.has(value),
       );
       expect(
         untranslated,
